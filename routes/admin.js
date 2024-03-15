@@ -102,6 +102,51 @@ router.get("/riders", async (req, res) => {
   }
 });
 
+// get rider count
+router.get("/rider/count", async (req, res) => {
+  try {
+    const response = await db.collection("serviceUser").get();
+    let responseArray = [];
+    response.forEach((doc) => {
+      if ((doc.data().vehicle_number != null)&&(doc.data().is_varified == 'true')) {
+        responseArray.push(doc.data());
+      }
+    });
+    const ridersCount = responseArray.length; 
+    res.send({val:ridersCount});
+  } catch (e) {
+    res.send(e); 
+  }
+});
+
+// get hotel count
+router.get("/hotel/count", async (req, res) => {
+  try {
+    const response = await db.collection("serviceUser").get();
+    let responseArray = [];
+    response.forEach((doc) => {
+      if ((doc.data().hotel_number != null)&&(doc.data().is_varified == 'true')) {
+        responseArray.push(doc.data());
+      }
+    });
+    const hotelsCount = responseArray.length; 
+    res.send({val:hotelsCount});
+  } catch (e) {
+    res.send(e); r
+  }
+});
+
+// get users count
+router.get("/user/count", async (req, res) => {
+  try {
+    const response = await db.collection("users").get();
+    
+    const usersCount = response.size; // Get the count of responses
+    res.send({val:usersCount});
+  } catch (e) {
+    res.send(e); // Internal server error
+  }
+});
 // Approving the rider - update rider status
 router.post("/update-ststus", async (req, res) => {
   try {
