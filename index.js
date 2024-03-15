@@ -10,7 +10,7 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 
-app.listen(4000, () => console.log("The server is running at PORT 4000"));
+app.listen(1000, () => console.log("The server is running at PORT 1000"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
